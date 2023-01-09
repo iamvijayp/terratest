@@ -10,11 +10,11 @@ pipeline {
         }
         
         stage ("terraform init") {
-            dir('iac/terraform/qaframework') {
             steps {
+                dir('iac/terraform/qaframework') {
                 sh ('terraform init') 
             }
-}
+            }
 
         }
         
