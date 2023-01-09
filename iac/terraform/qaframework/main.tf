@@ -9,7 +9,7 @@ variable "bucket_name" {
 ## s3 bucket creation module
 
 module "s3bucket" {
-  source      = "./modules/s3bucket"
+  source      = "../modules/s3bucket"
   bucket_name = var.bucket_name
 }
 
@@ -18,7 +18,7 @@ output "s3-bucketname" {
 }
 
 module "glue" {
-  source            = "./modules/glue-spark"
+  source            = "../modules/glue-spark"
   glue_s3_bucket    = module.s3bucket.s3-bucketname
   glue_script_s3key = "scripts/glue-compress.py"
   glue_script_path  = "glue-compress.py"
