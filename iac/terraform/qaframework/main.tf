@@ -9,10 +9,7 @@ provider "aws" {
   }
 }
 
-variable "bucket_name" {
-  type        = string
-  description = "enter the bucket name"
-}
+
 ## s3 bucket creation module
 
 module "s3bucket" {
