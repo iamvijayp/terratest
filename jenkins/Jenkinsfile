@@ -10,9 +10,12 @@ pipeline {
         }
         
         stage ("terraform init") {
+            dir('iac/terraform/qaframework') {
             steps {
                 sh ('terraform init') 
             }
+}
+
         }
         
         stage ("terraform Action") {
