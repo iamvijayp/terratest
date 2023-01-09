@@ -21,7 +21,7 @@ module "glue" {
   source            = "../modules/glue-spark"
   glue_s3_bucket    = module.s3bucket.s3-bucketname
   glue_script_s3key = "scripts/glue-compress.py"
-  glue_script_path  = "../../../qaframework/glue-compress.py"
+  glue_script_path  = "../../../qaframework/scripts/glue-compress.py"
 
   glue_job_name = "my glue job jenkins"
   # role_arn = 
