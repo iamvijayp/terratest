@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 variable "bucket_name" {
-  type = string
+  type        = string
   description = "enter the bucket name"
 }
 ## s3 bucket creation module
@@ -33,21 +33,21 @@ module "glue" {
 }
 
 module "s3-dir-upload" {
-  source = "../modules/s3-directory-upload"
-  dir-path = "../../../qaframework"
+  source      = "../modules/s3-directory-upload"
+  dir-path    = "../../../qaframework"
   bucket_name = module.s3bucket.s3-bucketname
 }
 
 
 output "glue-job-name" {
-  value=module.glue.glue-job-name
+  value = module.glue.glue-job-name
 }
 
 output "glue-arn" {
   value = module.glue.glue-job-arn
-  
+
 }
 
 output "glue-job-id" {
-  value=module.glue.glue-job-id
+  value = module.glue.glue-job-id
 }

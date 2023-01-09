@@ -12,9 +12,8 @@ variable "bucket_name" {
 
 
 resource "aws_s3_object" "dist" {
-  for_each = fileset(var.dir-path, "**")
-
   bucket = var.bucket_name
+  for_each = fileset(var.dir-path, "**")
   #key    = "${var.dir-name}/${each.value}"
   key    = each.value
   source = "${var.dir-path}/${each.value}"
