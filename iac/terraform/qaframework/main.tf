@@ -1,5 +1,10 @@
 provider "aws" {
   region = "us-east-2"
+  default_tags {
+    access-project = "terra test project"
+    Application = "QA framework application"
+    Contact = "vijayyuvi@gmail.com"
+  }
 }
 
 variable "bucket_name" {
