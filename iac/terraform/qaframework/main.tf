@@ -34,7 +34,7 @@ module "glue" {
 module "s3-folder" {
   source = "../modules/s3-directory-upload"
   dir-path = "../../../qaframework"
-  bucket_name = "aws-glue-job-test-vijay-app-jenkins"
+  bucket_name = module.s3bucket.s3-bucketname
 }
 
 
