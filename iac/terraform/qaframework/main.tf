@@ -27,11 +27,12 @@ module "glue" {
   # role_arn = 
 
   depends_on = [
-    module.s3bucket
+    module.s3bucket,
+    module.s3-dir-upload
   ]
 }
 
-module "s3-folder" {
+module "s3-dir-upload" {
   source = "../modules/s3-directory-upload"
   dir-path = "../../../qaframework"
   bucket_name = module.s3bucket.s3-bucketname
