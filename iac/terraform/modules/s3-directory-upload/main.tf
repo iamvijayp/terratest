@@ -1,8 +1,21 @@
-module "s3-dir-upload" {
-  source = "s3_object_folder"
+variable "dir-path" {
+  type = string
+}
+variable "dir-name" {
+  type=string
+  default = "qaframework"
+}
+variable "bucket_name" {
+  type = string
+  #default = "aws-glue-job-test-vijay-jenkins"
+}
 
-  bucket                = "test_bucket"
-  base_folder_path           = path.module # Or, something like "~/abc/xyz/build"
-  file_glob_pattern     = "**"
-  set_auto_content_type = true
+
+resource "aws_s3_object" "dist" {
+  for_each = fileset(var.dir-path, "**")
+
+  bucket = var.bucket_name
+  key    = "${var.dir-name}/${each.value}"
+  source = "${var.dir-path}/${each.value}"
+  etag = filemd5("${var.dir-path}/${each.value}")
 }
