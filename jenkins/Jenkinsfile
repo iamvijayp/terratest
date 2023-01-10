@@ -31,6 +31,7 @@ pipeline {
                 dir('iac/terraform/qaframework')
                 {
                 sh ('terraform destroy --auto-approve')
+                echo "destroyed terraform infra in aws"
                 }
             }    
            }
