@@ -29,7 +29,6 @@ module "glue" {
 
   glue_job_name = "my glue job jenkins"
   # role_arn = 
-
   depends_on = [
     module.s3bucket,
     module.s3-dir-upload
