@@ -13,7 +13,9 @@ resource "aws_glue_job" "glue-job" {
   max_retries = "1"
   timeout = 2880
   default_arguments = {
-    "--TempDir" = "s3://aws-glue-job-test-vijay-app-jenkins/temp"
+    "--TempDir" = "s3://${var.glue_s3_bucket}/temp" ,
+    "--extra-py-files" = "s3://${var.glue_s3_bucket}/jar/sample.jar.zip",
+    "--additional-python-modules" = "great_expectations, openpyxl"
   
   }
   command {
