@@ -24,7 +24,7 @@ variable "glue_script_path" {
   default = "glue-compress.py"
 }
 
-variable "default_arguments" {
+variable "default_arguments_forglue" {
   description = "default glue job args"
   type = map
   default = {}

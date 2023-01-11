@@ -12,7 +12,7 @@ resource "aws_glue_job" "glue-job" {
   description = "This is script to create large files from small files "
   max_retries = "1"
   timeout = 2880
-  default_arguments = var.default_arguments
+  default_arguments = var.default_arguments_forglue
   command {
     script_location = "s3://${var.glue_s3_bucket}/${var.glue_script_s3key}"
     python_version = "3"
