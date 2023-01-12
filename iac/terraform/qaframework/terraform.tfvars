@@ -1,7 +1,4 @@
-bucket_name = "${team_name}-${env}-aws-glue-job-test-vijay-app-jenkins"
-
-team_name = "devops"
-env = "dev"
+bucket_name = "${local.name}-aws-glue-job-test-vijay-app-jenkins"
 
 default_args = {
     "--TempDir" = "s3://aws-glue-job-test-vijay-app-jenkins/temp" ,
