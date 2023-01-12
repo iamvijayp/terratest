@@ -28,6 +28,8 @@ module "glue" {
   glue_script_path  = "../../../qaframework/scripts/glue-compress.py"
 
   glue_job_name = "my glue job jenkins"
+
+  glue_default_args = var.default_args
   # role_arn = 
   depends_on = [
     module.s3bucket,

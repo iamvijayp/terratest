@@ -1,6 +1,6 @@
-variable "glue_s3_bucket" {
-  default = "aws-glue-job-test-vijay123412"
-}
+# variable "glue_s3_bucket" {
+#   default = "aws-glue-job-test-vijay123412"
+# }
 
 variable "glue_script_s3key" {
   type= string
@@ -25,7 +25,7 @@ variable "glue_script_path" {
   default = "glue-compress.py"
 }
 
-variable "default_args" {
+variable "glue_default_args" {
   description = "default glue job args"
   type = map(string)
   default = {}
