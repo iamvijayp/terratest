@@ -7,10 +7,8 @@ variable "default_args" {
 }
 
 variable "team-name" {
-  default = "devops"
 }
 variable "env" {
-  default = "dev"
 }
 locals {
   name = "${var.team-name}-${var.env}"
