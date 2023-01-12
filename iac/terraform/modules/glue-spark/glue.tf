@@ -13,6 +13,7 @@ resource "aws_glue_job" "glue-job" {
   max_retries = "1"
   timeout = 2880
   default_arguments = var.default_args
+
   command {
     script_location = "s3://${var.glue_s3_bucket}/${var.glue_script_s3key}"
     python_version = "3"

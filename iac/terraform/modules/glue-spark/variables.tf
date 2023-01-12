@@ -1,6 +1,7 @@
 variable "glue_s3_bucket" {
   default = "aws-glue-job-test-vijay123412"
 }
+
 variable "glue_script_s3key" {
   type= string
   default = "glue-compress.py"
