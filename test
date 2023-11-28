@@ -1,0 +1,5 @@
+We're using a middleware-based custom code integration between FDM4 ERP and Fluent Commerce OMS. The middleware software layer acts as a bridge between the two systems.
+
+Fluent Commerce's cloud-native platform has a modern, scalable OMS architecture with open APIs and an extensible platform. It provides a low-code platform for order management that allows us to configure and extend UIs and workflows to fit the business. It also supports multiple API patterns (REST, GraphQL, Webhooks, synchronous, asynchronous, etc.), providing the flexibility needed for faster integration.
+
+The integration of FDM4 ERP and Fluent Commerce OMS using middleware can help businesses streamline their operations, optimize inventory, and enhance customer experience.
