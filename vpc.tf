@@ -1,6 +1,6 @@
 # Specify the provider and region
 provider "aws" {
-  region = "us-east-1"
+  region = "ap-southeast-1"
 }
 
 # Create a VPC
@@ -14,6 +14,11 @@ resource "aws_subnet" "private" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = element(["10.6.0.0/20", "10.6.16.0/20", "10.6.32.0/20"], count.index)
   map_public_ip_on_launch = false
+  availability_zone       = element(data.aws_availability_zones.available.names, count.index)
+
+  tags = {
+    Name = "private-${element(data.aws_availability_zones.available.names, count.index)}"
+  }
 }
 
 # Create public subnets
@@ -22,7 +27,16 @@ resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = element(["10.6.48.0/20", "10.6.64.0/20", "10.6.80.0/20"], count.index)
   map_public_ip_on_launch = true
+  availability_zone       = element(data.aws_availability_zones.available.names, count.index)
+
+  tags = {
+    Name = "public-${element(data.aws_availability_zones.available.names, count.index)}"
+  }
 }
+
+# Fetch the availability zones in the region
+data "aws_availability_zones" "available" {}
+
 
 # Create an Internet Gateway and attach it to the VPC
 resource "aws_internet_gateway" "igw" {
@@ -48,14 +62,16 @@ resource "aws_route_table_association" "public" {
 
 # Create an EIP for the NAT gateway
 resource "aws_eip" "nat" {
-  vpc   = true
+  depends_on = [aws_internet_gateway.igw]
 }
 
 # Create a NAT gateway in the first public subnet
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
   subnet_id     = aws_subnet.public[0].id
+  depends_on    = [aws_internet_gateway.igw]
 }
+
 
 # Create private route tables
 resource "aws_route_table" "private" {
