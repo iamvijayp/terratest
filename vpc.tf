@@ -1,11 +1,12 @@
-# Specify the provider and region
-provider "aws" {
-  region = "ap-southeast-1"
-}
+# Fetch the availability zones in the region
+data "aws_availability_zones" "available" {}
 
 # Create a VPC
 resource "aws_vpc" "main" {
   cidr_block = "10.6.0.0/16"
+  tags = {
+    Name = "alo-bopis-app-vpc"
+  }
 }
 
 # Create private subnets
@@ -33,10 +34,6 @@ resource "aws_subnet" "public" {
     Name = "public-${element(data.aws_availability_zones.available.names, count.index)}"
   }
 }
-
-# Fetch the availability zones in the region
-data "aws_availability_zones" "available" {}
-
 
 # Create an Internet Gateway and attach it to the VPC
 resource "aws_internet_gateway" "igw" {
