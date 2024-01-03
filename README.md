@@ -1,4 +1,2 @@
 # terratest
-sk-ennFW15fW5vv3AvOB3SfsTr
-
-AdE2qu1uxT3BlbkFJEEY6R2rS
+https://stackoverflow.com/questions/74264875/can-aws-eventbridge-directly-to-call-http-api-on-ecs-container-that-is-running-a
