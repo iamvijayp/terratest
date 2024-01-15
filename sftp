@@ -1,0 +1,69 @@
+resource "aws_transfer_server" "sftp_server" {
+  identity_provider_type = "SERVICE_MANAGED"
+  protocols              = ["SFTP"]
+}
+
+resource "tls_private_key" "sftp_private_key" {
+  algorithm = "RSA"
+}
+
+resource "aws_transfer_ssh_key" "ssh_key" {
+  server_id = aws_transfer_server.sftp_server.id
+  body      = tls_private_key.sftp_private_key.public_key_openssh
+}
+
+resource "aws_transfer_user" "sftp_user" {
+  server_id = aws_transfer_server.sftp_server.id
+  user_name = "sfs-product-upload-user"
+  role      = aws_iam_role.sftp_user.arn
+  ssh_keys  = [aws_transfer_ssh_key.ssh_key.id]
+  home_directory_type = "LOGICAL"
+  home_directory = "/bucket/${aws_s3_bucket.sftp_bucket.bucket}"
+}
+
+resource "aws_iam_role" "sftp_user" {
+  name = "sfs-product-upload-user"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "transfer.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy" "sftp_user" {
+  name = "sfs-product-upload-user"
+  role = aws_iam_role.sftp_user.id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowFullAccesstoCloudWatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_s3_bucket" "sftp_bucket" {
+  bucket = "my-sfs-s3bucket"
+  acl    = "private"
+  region = "us-east-1"
+}
