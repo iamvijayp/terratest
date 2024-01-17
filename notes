@@ -1,0 +1,15 @@
+https://stackoverflow.com/questions/53025392/spring-boot-deployment-in-different-environments.
+https://stackoverflow.com/questions/77284952/how-to-manage-multiple-properties-files-in-spring-boot-for-different-deploying
+
+
+1. Create Different Properties Files: Create different application.properties files for each environment. For example, application-dev.properties for the development environment, application-prod.properties for the production environment
+2. Set Active Profile: In your GitHub Actions workflow, set the active profile based on the environment. You can do this by setting the spring.profiles.active environment variable.  For example, if you’re deploying to the production environment, you would set spring.profiles.active=prod
+3. Load Properties: Spring Boot will automatically load the properties from the application-{profile}.properties file based on the active profile
+------
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set active profile
+        run: echo "spring.profiles.active=prod" >> $GITHUB_ENV
+--------
